@@ -14,11 +14,11 @@ const Carritos = require('./db/db.modelo.carritos')
 const vistaRoles = require('./app/vistas/vista.roles');
 const vistaUsuarios = require('./app/vistas/vista.usuarios');
 const vistaProductos = require('./app/vistas/vista.productos');
-
+const vistaCategorias = require('./app/vistas/vista.categorias');
 //Middleware globales
 app.use(express.json())
 app.use(cors())
-app.use(midd.limiter)
+    /* app.use(midd.limiter) */
 
 //Configuraciones globales
 app.use(express.static(__dirname + '/public'))
@@ -52,3 +52,6 @@ inicioServer();
 vistaRoles(app)
 vistaUsuarios(app)
 vistaProductos(app)
+vistaInterfaz(app)
+vistaProductos(app)
+vistaCategorias(app)
