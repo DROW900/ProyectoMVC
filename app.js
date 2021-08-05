@@ -16,12 +16,8 @@ const vistaUsuarios = require('./app/vistas/vista.usuarios');
 const vistaProductos = require('./app/vistas/vista.productos');
 const vistaCategorias = require('./app/vistas/vista.categorias');
 const vistaInterfaz = require('./app/vistas/vista.interfaz')
-<<<<<<< HEAD
-    //Middleware globales
-=======
 
 //Middleware globales
->>>>>>> 073e731b00bb9c566b8b9996bbdf169a4b630b7a
 app.use(express.json())
 app.use(cors())
     /* app.use(midd.limiter) */

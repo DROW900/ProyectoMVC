@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="assets/dist/css/formulario_usuario.css">
+    <link rel="stylesheet" href="/assets/dist/css/formulario_usuario.css">
+    <script src="assets/dist/js/usuario.js"></script>
     <title>Document</title>
 </head>
 
@@ -13,55 +14,47 @@
     <div class="form">
 
         <ul class="tab-group">
-
-            <li class="tab"><a href="http://localhost:3000/login">Log In</a></li>
+            <li class="tab active"><a href="#signup">Sign Up</a></li>
+            <li class="tab"><a href="#login">Log In</a></li>
         </ul>
 
         <div class="tab-content">
             <div id="signup">
                 <h1>Sign Up for Free</h1>
 
-                <form action="/" method="post">
+                <form>
 
                     <div class="top-row">
                         <div class="field-wrap">
                             <label>
-                Primer Apellido<span class="req">*</span>
-              </label>
+                  First Name<span class="req">*</span>
+                </label>
                             <input type="text" required autocomplete="off" />
                         </div>
 
                         <div class="field-wrap">
                             <label>
-                Segundo Apellido<span class="req">*</span>
-              </label>
+                  Last Name<span class="req">*</span>
+                </label>
                             <input type="text" required autocomplete="off" />
                         </div>
                     </div>
 
                     <div class="field-wrap">
                         <label>
-              Email<span class="req">*</span>
-            </label>
+                Email Address<span class="req">*</span>
+              </label>
                         <input type="email" required autocomplete="off" />
                     </div>
 
                     <div class="field-wrap">
                         <label>
-              Direccion<span class="req">*</span>
-            </label>
-                        </label>
-                        <input type="email" required autocomplete="off" />
-                    </div>
-
-                    <div class="field-wrap">
-                        <label>
-Password<span class="req">*</span>
-</label>
+                Set A Password<span class="req">*</span>
+              </label>
                         <input type="password" required autocomplete="off" />
                     </div>
 
-                    <button type="submit" class="button button-block" />Get Started</button>
+                    <button onclick="Usuario.registrar()" class="button button-block" />Get Started</button>
 
                 </form>
 
@@ -70,19 +63,19 @@ Password<span class="req">*</span>
             <div id="login">
                 <h1>Welcome Back!</h1>
 
-                <form action="/" method="post">
+                <form action="Usuario.registrar()">
 
                     <div class="field-wrap">
                         <label>
-              Email Address<span class="req">*</span>
-            </label>
+                Email Address<span class="req">*</span>
+              </label>
                         <input type="email" required autocomplete="off" />
                     </div>
 
                     <div class="field-wrap">
                         <label>
-              Password<span class="req">*</span>
-            </label>
+                Password<span class="req">*</span>
+              </label>
                         <input type="password" required autocomplete="off" />
                     </div>
 

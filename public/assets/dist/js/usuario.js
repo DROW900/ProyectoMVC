@@ -99,6 +99,9 @@ class Usuario {
         //localStorage.setItem('id', id)
         window.location.href = 'http://localhost:4000/usuario_form'
     }
+    static async registrar() {
+        console.log('holaa');
+    }
 
 
 }
