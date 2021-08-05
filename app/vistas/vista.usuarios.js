@@ -79,9 +79,9 @@ module.exports = async(app) => {
         }
     })
 
-    app.get('/admin/usuario_form/:tipo_rol', midd.verificarPermisos, midd.validarUsuario, async(req, res) => {
+    app.get('/usuario_form', async(req, res) => {
         try {
-            console.log('entre al end point');
+
             res.render('usuario_form');
 
         } catch (error) {

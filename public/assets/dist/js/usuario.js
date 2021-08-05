@@ -97,19 +97,7 @@ class Usuario {
     }
     static async agregar_admin() {
         //localStorage.setItem('id', id)
-        console.log('entre voy por el form');
-        let usuario = await this.recuperarUsuario();
-        let resultado = await fetch(`http://localhost:4000/admin/usuario_form/${usuario.tipo_rol}`, {
-            method: 'get',
-            headers: {
-                "Accept": "application/json, text/plain, */*",
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${usuario.token}`
-            },
-
-        });
-        window.location.href = `http://localhost:4000/admin/usuario_form/${usuario.tipo_rol}`
-
+        window.location.href = 'http://localhost:4000/usuario_form'
     }
 
 
