@@ -1,33 +1,33 @@
 const modeloUsuarios = require('../modelos/modelo.usuarios')
 const jwt = require('jsonwebtoken')
 
-module.exports.listarUsuario = async() =>{
+module.exports.listarUsuarios = async() => {
     try {
         const resultado = await modeloUsuarios.listarUsuarios()
         return resultado
     } catch (error) {
         console.log('Error del controlador')
-        throw new Error('Hubo un error desde el controlador')  
+        throw new Error('Hubo un error desde el controlador')
     }
 }
 
-module.exports.verificacionUsuario = async (token)=> {
+module.exports.verificacionUsuario = async(token) => {
     const resultado = jwt.verify(token, process.env.SECRET_KEY)
-    if(resultado){
+    if (resultado) {
         return resultado
-    }else {
-        throw new Error ('Token no valido!')
+    } else {
+        throw new Error('Token no valido!')
     }
 }
 
-module.exports.generaToken = async (data)=> {
+module.exports.generaToken = async(data) => {
     const resultado = jwt.sign({
-        data} , process.env.SECRET_KEY 
-    ) //Tiempo maximo 15 minutos de validez
+            data
+        }, process.env.SECRET_KEY) //Tiempo maximo 15 minutos de validez
     return resultado
 }
 
-module.exports.validarUsuario = async(datos) =>{
+module.exports.validarUsuario = async(datos) => {
     try {
         const resultado = await modeloUsuarios.validarUsuario(datos)
         return resultado
@@ -36,7 +36,7 @@ module.exports.validarUsuario = async(datos) =>{
     }
 }
 
-module.exports.registrarUsuario = async(datos) =>{
+module.exports.registrarUsuario = async(datos) => {
     try {
         //Encriptar antes de enviar
         const resultado = await modeloUsuarios.registrarUsuario(datos)
@@ -47,7 +47,7 @@ module.exports.registrarUsuario = async(datos) =>{
     }
 }
 
-module.exports.modificarUsuario = async(datos) =>{
+module.exports.modificarUsuario = async(datos) => {
     try {
         //Encriptar antes de enviar
         const resultado = await modeloUsuarios.modificarUsuario(datos)
@@ -58,7 +58,7 @@ module.exports.modificarUsuario = async(datos) =>{
     }
 }
 
-module.exports.eliminarUsuario = async(id) =>{
+module.exports.eliminarUsuario = async(id) => {
     try {
         //Encriptar antes de enviar
         const resultado = await modeloUsuarios.eliminarUsuario(id)
@@ -66,5 +66,5 @@ module.exports.eliminarUsuario = async(id) =>{
     } catch (error) {
         console.log('Error del controlador')
         throw new Error('Hubo un error desde el controlador')
-    }  
+    }
 }
