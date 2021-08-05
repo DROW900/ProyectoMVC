@@ -26,7 +26,6 @@ module.exports = async(app) => {
 
     app.get('/login', async(req, res) => {
         try {
-
             res.render("login_demo")
         } catch (error) {
             console.log(error)
