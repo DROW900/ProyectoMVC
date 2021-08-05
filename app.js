@@ -15,11 +15,11 @@ const vistaRoles = require('./app/vistas/vista.roles');
 const vistaUsuarios = require('./app/vistas/vista.usuarios');
 const vistaInterfaz = require('./app/vistas/vistas.interfaz');
 const vistaProductos = require('./app/vistas/vista.productos');
-
+const vistaCategorias = require('./app/vistas/vista.categorias');
 //Middleware globales
 app.use(express.json())
 app.use(cors())
-app.use(midd.limiter)
+/* app.use(midd.limiter) */
 
 //Configuraciones globales
 app.use(express.static(__dirname + '/public'))
@@ -54,3 +54,4 @@ vistaRoles(app)
 vistaUsuarios(app)
 vistaInterfaz(app)
 vistaProductos(app)
+vistaCategorias(app)
