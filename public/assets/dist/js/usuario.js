@@ -8,7 +8,7 @@ class Usuario {
             alert('Alguno de los campos está vacío')
             return
         }
-        let resultado = await fetch('http://localhost:4000/login', {
+        let resultado = await fetch('http://localhost:3000/login', {
             method: 'post',
             headers: {
                 "Accept": "application/json, text/plain, */*",
@@ -24,9 +24,9 @@ class Usuario {
         this.token = datos.token;
         this.tipo_rol = datos.tipo_rol;
         if (this.token != undefined && this.tipo_rol == 1) {
-            window.location.href = 'http://localhost:4000/admin_usuarios'
+            window.location.href = 'http://localhost:3000/admin_usuarios'
         } else if (this.token != undefined && this.tipo_rol == 2) {
-            window.location.href = 'http://localhost:4000/principal'
+            window.location.href = 'http://localhost:3000/principal'
         }
 
     }
@@ -43,7 +43,7 @@ class Usuario {
     static async listarUsuarios() {
         try {
             const usuario = await this.recuperarUsuario();
-            let resultado = await fetch(`http://localhost:4000/usuarios/${usuario.rol}`, {
+            let resultado = await fetch(`http://localhost:3000/usuarios/${usuario.rol}`, {
                 method: 'get',
                 headers: {
                     "Accept": "application/json, text/plain, */*",
@@ -75,17 +75,20 @@ class Usuario {
     }
 
     static async ingresar() {
+
         const email = document.getElementById('inputEmail')
         const password = document.getElementById('inputPassword')
         const usuario = new Usuario(email.value, password.value);
         await usuario.validarUsuario();
         Usuario.guardarUsuario(usuario);
 
+
+
     }
     static async eliminar(id) {
         //localStorage.setItem('id', id)
         let usuario = await this.recuperarUsuario();
-        let resultado = await fetch(`http://localhost:4000/usuarios/${id}`, {
+        let resultado = await fetch(`http://localhost:3000/usuarios/${id}`, {
             method: 'delete',
             headers: {
                 "Accept": "application/json, text/plain, */*",
@@ -95,13 +98,62 @@ class Usuario {
         });
         location.reload();
     }
-    static async agregar_admin() {
-        //localStorage.setItem('id', id)
-        window.location.href = 'http://localhost:4000/usuario_form'
+
+
+    static async mostrar_form() {
+        window.location.href = 'http://localhost:3000/usuario_form'
+
     }
+
     static async registrar() {
-        console.log('holaa');
+        let usuario = await this.recuperarUsuario();
+        let nombres = document.getElementById('nombre').value;
+        let apellido1 = document.getElementById('pAp').value;
+        let apellido2 = document.getElementById('sAp').value;
+        let dir = document.getElementById('direccion').value;
+        let tel = document.getElementById('telefono').value;
+        let roleid = document.getElementById('roleid').value;
+        let mail = document.getElementById('email').value;
+        let pass = document.getElementById('password').value;
+        let tipo_rol = usuario.tipo_rol;
+
+        const rawResponse = await fetch(`http://localhost:3000/admin_usuario_registrar/${tipo_rol}`, {
+            method: 'POST',
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${usuario.token}`
+            },
+            body: JSON.stringify({
+                nombre: nombres,
+                primerApellido: apellido1,
+                segundoApellido: apellido2,
+                email: mail,
+                status: 1,
+                contrasenia: pass,
+                direccion: dir,
+                telefono: tel,
+                roleId: roleid
+
+
+
+            })
+        });
+
+
     }
-
-
 }
+
+/*
+  body: {
+                nombre: nombre,
+                primerApellido: primerApellido,
+                segundoApellido: segundoApellido,
+                email: email,
+                status: 1,
+                contrasenia: password,
+                direccion: direccion,
+                telefono: telefono,
+                tipo_rol: tipo_rol
+            }
+            */
