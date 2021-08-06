@@ -115,7 +115,7 @@ class Usuario {
         let apellido2 = document.getElementById('sAp').value;
         let dir = document.getElementById('direccion').value;
         let tel = document.getElementById('telefono').value;
-        let roleid = document.getElementById('roleid').value;
+        let roleid = 1;
         let mail = document.getElementById('email').value;
         let pass = document.getElementById('password').value;
         let tipo_rol = usuario.tipo_rol;

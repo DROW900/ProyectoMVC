@@ -3,7 +3,7 @@ const Roles = require('../../db/db.modelo.roles')
 
 module.exports.listarUsuarios = async() => {
     try {
-        let resultado = await Usuarios.findAll({ where: { status: 1 } })
+        let resultado = await Usuarios.findAll({ where: { status: 1, roleId: 1 } })
         console.log(resultado);
         return resultado;
     } catch (error) {
