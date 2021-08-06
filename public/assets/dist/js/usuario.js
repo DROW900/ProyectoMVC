@@ -104,7 +104,10 @@ class Usuario {
         window.location.href = 'http://localhost:3000/usuario_form'
 
     }
+    static async primer_registro_form() {
+        window.location.href = 'http://localhost:3000/usuario_comun_form'
 
+    }
     static async registrar() {
         let usuario = await this.recuperarUsuario();
         let nombres = document.getElementById('nombre').value;
@@ -142,18 +145,37 @@ class Usuario {
 
 
     }
-}
+    static async primer_registro() {
 
-/*
-  body: {
-                nombre: nombre,
-                primerApellido: primerApellido,
-                segundoApellido: segundoApellido,
-                email: email,
+        let nombres = document.getElementById('nombre').value;
+        let apellido1 = document.getElementById('pAp').value;
+        let apellido2 = document.getElementById('sAp').value;
+        let dir = document.getElementById('direccion').value;
+        let tel = document.getElementById('telefono').value;
+        let mail = document.getElementById('email').value;
+        let pass = document.getElementById('password').value;
+
+
+        const rawResponse = await fetch(`http://localhost:3000/primer_registro`, {
+            method: 'POST',
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                'Content-Type': 'application/json',
+                // 'Authorization': `Bearer ${usuario.token}`
+            },
+            body: JSON.stringify({
+                nombre: nombres,
+                primerApellido: apellido1,
+                segundoApellido: apellido2,
+                email: mail,
                 status: 1,
-                contrasenia: password,
-                direccion: direccion,
-                telefono: telefono,
-                tipo_rol: tipo_rol
-            }
-            */
+                contrasenia: pass,
+                direccion: dir,
+                telefono: tel,
+                roleId: 2
+            })
+        });
+
+
+    }
+}

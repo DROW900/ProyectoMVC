@@ -57,7 +57,26 @@ module.exports = async(app) => {
             res.status(500).json(error)
         }
     })
+    app.post('/primer_registro', async(req, res) => {
+        try {
+            console.log(req.body);
+            let data = await controladorUsuarios.registrarUsuario(req.body);
+            res.status(200).json(data)
+        } catch (error) {
+            console.log(error)
+            res.status(500).json(error)
+        }
+    })
 
+    app.get('/usuario_comun_form', async(req, res) => {
+        try {
+
+            res.render('usuario_comun_form');
+        } catch (error) {
+            console.log(error)
+            res.status(500).json(error)
+        }
+    })
 
 
     app.put('/usuarios', midd.usuarioValido, async(req, res) => {
