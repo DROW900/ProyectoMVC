@@ -178,4 +178,14 @@ class Usuario {
 
 
     }
+    static async editar(id) {
+        await this.mostrar_form();
+        document.getElementById('nombre').value = 'kevin';
+        document.getElementById('pAp').value = 'alvarez';
+        document.getElementById('sAp').value = 'ramirez';
+        document.getElementById('direccion').value = 'una casa';
+        document.getElementById('telefono').value = '58295076';
+        document.getElementById('email').value = 'k@gmail.com';
+        document.getElementById('password').value = 'k123';
+    }
 }

@@ -59,9 +59,14 @@
                 </td>
 
                 <td>
-                    <button onclick="Usuario.eliminar(<%= usuario.id%>)" href='#'><img src='assets/images/cross.png'></a>
+                    <button onclick="Usuario.eliminar(<%= usuario.id%>)"><img src='assets/images/cross.png'></a>
 
                 </td>
+                <td>
+                    <button onclick="Usuario.editar(<%= usuario.id%>)"><img src='assets/images/edit.png'></a>
+
+                </td>
+                
                 </tr>
                 <% }) %>
 
