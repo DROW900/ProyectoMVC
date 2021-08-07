@@ -12,8 +12,6 @@ module.exports = async (app) =>{
         }
     })
 
-
-
     app.post('/productos',midd.usuarioValido, async(req,res) => {
         try {
             let data = await controladorProducto.crearProducto(req.body);
@@ -23,8 +21,6 @@ module.exports = async (app) =>{
             res.status(500).json('Error ruta: producto')
         }
     })
-
-
 
     app.put('/productos',midd.usuarioValido, async(req,res) => {
         try {

@@ -1,7 +1,6 @@
-const { DataTypes, Model } = require('sequelize');
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize(process.env.DB_NAME, null, null, {
+const sequelize = new Sequelize('proyecto_tecla', null, null, {
     dialect: 'mssql',
     server: process.env.DB_HOST,
     port: process.env.DB_PORT,

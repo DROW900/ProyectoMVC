@@ -4,6 +4,7 @@ module.exports.listarCategorias = async()=>{
     try {
         const array = [1]
         const resultado = await Categorias.findAll({where:{status: array[0]}})
+        console.log(resultado)
         return resultado;
     } catch (error) {
         console.log('Error desde el modelo')

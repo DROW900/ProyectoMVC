@@ -18,6 +18,6 @@ Productos.init(
         modelName: 'productos',
         timestamps: true
     });
-    
+
 Productos.SubCategorias = Productos.belongsTo(SubCategorias);
 module.exports = Productos;

@@ -1,6 +1,7 @@
 const {DataTypes, Model} = require('sequelize');
 const sequelize = require('../db/db.conexion');
-const Roles = require('../db/db.modelo.roles')
+const Roles = require('../db/db.modelo.roles');
+
 
 class Usuarios extends Model{}
 
@@ -21,7 +22,5 @@ Usuarios.init(
         modelName: 'usuarios',
         timestamps: true
     });
-
 Usuarios.Roles = Usuarios.belongsTo(Roles);
-
 module.exports = Usuarios;
