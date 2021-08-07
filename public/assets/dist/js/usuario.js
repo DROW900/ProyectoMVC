@@ -26,7 +26,7 @@ class Usuario {
         if (this.token != undefined && this.tipo_rol == 1) {
             window.location.href = 'http://localhost:3000/admin_usuarios'
         } else if (this.token != undefined && this.tipo_rol == 2) {
-            window.location.href = 'http://localhost:400/principal'
+            window.location.href = 'http://localhost:3000/principal'
         }
 
     }
