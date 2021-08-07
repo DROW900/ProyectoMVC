@@ -11,11 +11,7 @@ module.exports = async(app) => {
         }
     })
 
-<<<<<<< HEAD
-    app.post('/categorias', async(req,res)=>{
-=======
     app.post('/categorias', async(req, res) => {
->>>>>>> 96d77a7fba2f9a0a123951081b07b3b2fdb05d96
         try {
             let resultado = await controladorCategorias.registrarCategoria(req.body)
             res.status(200).json(resultado)
