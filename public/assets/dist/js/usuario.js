@@ -8,7 +8,7 @@ class Usuario {
             alert('Alguno de los campos está vacío')
             return
         }
-        let resultado = await fetch('http://localhost:4000/login', {
+        let resultado = await fetch('http://localhost:3000/login', {
             method: 'post',
             headers: {
                 "Accept": "application/json, text/plain, */*",
@@ -24,9 +24,9 @@ class Usuario {
         this.token = datos.token;
         this.tipo_rol = datos.tipo_rol;
         if (this.token != undefined && this.tipo_rol == 1) {
-            window.location.href = 'http://localhost:4000/admin_usuarios'
+            window.location.href = 'http://localhost:3000/admin_usuarios'
         } else if (this.token != undefined && this.tipo_rol == 2) {
-            window.location.href = 'http://localhost:4000/principal'
+            window.location.href = 'http://localhost:3000/principal'
         }
 
     }
@@ -40,52 +40,23 @@ class Usuario {
         return resultado
     }
 
-    static async listarUsuarios() {
-        try {
-            const usuario = await this.recuperarUsuario();
-            let resultado = await fetch(`http://localhost:4000/usuarios/${usuario.rol}`, {
-                method: 'get',
-                headers: {
-                    "Accept": "application/json, text/plain, */*",
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${usuario.token}`
-                },
-            })
-            const resultadoJson = await resultado.json()
-            console.log(resultadoJson)
-            let datosTabla = ""
-            for (let i = 0; i < resultadoJson.length; i++) {
-                datosTabla += `<tr>
-                                    <td>${resultadoJson[i].id}</td>
-                                    <td>${resultadoJson[i].nombre}</td>
-                                    <td>${resultadoJson[i].primerApellido}</td>
-                                    <td>${resultadoJson[i].segundoApellido}</td>
-                                    <td>${resultadoJson[i].email}</td>
-                                    <td>${resultadoJson[i].telefono}</td>
-                                    <td><a href='#'><img src= 'assets/images/edit.png'></a></td>
-                                    <td><a href='#'><img src= 'assets/images/cross.png'></a></td>                        
-                              </tr>`
-            }
-            document.getElementById('tbody').innerHTML = datosTabla;
-        } catch (error) {
-            alert('Acceso Denegado')
-        }
 
-
-    }
 
     static async ingresar() {
+
         const email = document.getElementById('inputEmail')
         const password = document.getElementById('inputPassword')
         const usuario = new Usuario(email.value, password.value);
         await usuario.validarUsuario();
         Usuario.guardarUsuario(usuario);
 
+
+
     }
     static async eliminar(id) {
         //localStorage.setItem('id', id)
         let usuario = await this.recuperarUsuario();
-        let resultado = await fetch(`http://localhost:4000/usuarios/${id}`, {
+        let resultado = await fetch(`http://localhost:3000/usuarios/${id}`, {
             method: 'delete',
             headers: {
                 "Accept": "application/json, text/plain, */*",
@@ -95,22 +66,160 @@ class Usuario {
         });
         location.reload();
     }
-    static async agregar_admin() {
-        //localStorage.setItem('id', id)
-        console.log('entre voy por el form');
+
+
+    static async mostrar_form() {
+        window.location.href = 'http://localhost:3000/usuario_form'
+
+    }
+    static async primer_registro_form() {
+        window.location.href = 'http://localhost:3000/usuario_comun_form'
+
+    }
+    static async registrar() {
+
         let usuario = await this.recuperarUsuario();
-        let resultado = await fetch(`http://localhost:4000/admin/usuario_form/${usuario.tipo_rol}`, {
-            method: 'get',
+        let nombres = document.getElementById('nombre').value;
+        let apellido1 = document.getElementById('pAp').value;
+        let apellido2 = document.getElementById('sAp').value;
+        let dir = document.getElementById('direccion').value;
+        let tel = document.getElementById('telefono').value;
+        let roleid = 1;
+        let mail = document.getElementById('email').value;
+        let pass = document.getElementById('password').value;
+        let tipo_rol = usuario.tipo_rol;
+
+        const rawResponse = await fetch(`http://localhost:3000/admin_usuario_registrar/${tipo_rol}`, {
+            method: 'POST',
             headers: {
                 "Accept": "application/json, text/plain, */*",
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${usuario.token}`
             },
+            body: JSON.stringify({
+                nombre: nombres,
+                primerApellido: apellido1,
+                segundoApellido: apellido2,
+                email: mail,
+                status: 1,
+                contrasenia: pass,
+                direccion: dir,
+                telefono: tel,
+                roleId: roleid
 
+
+
+            })
         });
-        window.location.href = `http://localhost:4000/admin/usuario_form/${usuario.tipo_rol}`
+
+
 
     }
+    static async primer_registro() {
+
+        let nombres = document.getElementById('nombre').value;
+        let apellido1 = document.getElementById('pAp').value;
+        let apellido2 = document.getElementById('sAp').value;
+        let dir = document.getElementById('direccion').value;
+        let tel = document.getElementById('telefono').value;
+        let mail = document.getElementById('email').value;
+        let pass = document.getElementById('password').value;
 
 
+        const rawResponse = await fetch(`http://localhost:3000/primer_registro`, {
+            method: 'POST',
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                'Content-Type': 'application/json',
+                // 'Authorization': `Bearer ${usuario.token}`
+            },
+            body: JSON.stringify({
+                nombre: nombres,
+                primerApellido: apellido1,
+                segundoApellido: apellido2,
+                email: mail,
+                status: 1,
+                contrasenia: pass,
+                direccion: dir,
+                telefono: tel,
+                roleId: 2
+            })
+        });
+
+
+    }
+    static async editar(id) {
+        window.location.href = 'http://localhost:3000/usuario_admin_edit_form'
+
+        console.log(id);
+        localStorage.setItem('id_usuario', id);
+        this.mostrar_form_edit();
+
+    }
+    static async mostrar_form_edit() {
+        window.location.href = 'http://localhost:3000/usuario_admin_edit_form'
+    }
+    static async buscarInfo() {
+        let usuario = await this.recuperarUsuario();
+        console.log(usuario);
+        let id = localStorage.getItem('id_usuario');
+        console.log(id);
+        const rawResponse = await fetch(`http://localhost:3000/usuario_by_id/${usuario.tipo_rol}/${usuario.tipo_rol}`, {
+            method: 'GET',
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${usuario.token}`
+            },
+        });
+        let datos = await rawResponse.json();
+        //console.log(datos);
+        document.getElementById('id_usuario').value = datos.id;
+        document.getElementById('nombre').value = datos.nombre;
+        document.getElementById('pAp').value = datos.primerApellido;
+        document.getElementById('sAp').value = datos.segundoApellido;
+        document.getElementById('direccion').value = datos.direccion;
+        document.getElementById('telefono').value = datos.telefono;
+        document.getElementById('email').value = datos.email;
+        document.getElementById('password').value = datos.contrasenia;
+
+
+    }
+    static async registrar_actualizacion_admin() {
+
+        console.log('vamos a editar perros');
+        let usuario = await this.recuperarUsuario();
+        let id_usuario = document.getElementById('id_usuario').value;
+        let nombres = document.getElementById('nombre').value;
+        let apellido1 = document.getElementById('pAp').value;
+        let apellido2 = document.getElementById('sAp').value;
+        let dir = document.getElementById('direccion').value;
+        let tel = document.getElementById('telefono').value;
+        let roleId = 1;
+        let mail = document.getElementById('email').value;
+        let pass = document.getElementById('password').value;
+        console.log(id_usuario);
+        const rawResponse = await fetch(`http://localhost:3000/usuario/${usuario.tipo_rol}`, {
+            method: 'PUT',
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${usuario.token}`
+            },
+            body: JSON.stringify({
+                id: id_usuario,
+                nombre: nombres,
+                primerApellido: apellido1,
+                segundoApellido: apellido2,
+                email: mail,
+                status: 1,
+                contrasenia: pass,
+                direccion: dir,
+                telefono: tel,
+                roleId: roleId,
+
+            })
+        });
+
+    }
 }

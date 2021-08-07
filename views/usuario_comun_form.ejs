@@ -14,7 +14,7 @@
     <div class="form">
 
         <ul class="tab-group">
-            <li class="tab active"><a href="admin_usuarios">Usuarios</a></li>
+
             <li class="tab"><a href="login">Iniciar Sesión</a></li>
         </ul>
 
@@ -27,9 +27,9 @@
                     <div class="top-row">
                         <div class="field-wrap">
                             <label>
-                 
+                  Nombre<span class="req">*</span>
                 </label>
-                            <input placeholder="Nombre" id="nombre" type="text" required autocomplete="off" />
+                            <input id="nombre" type="text" required autocomplete="off" />
                         </div>
 
                         <div class="field-wrap">
@@ -57,7 +57,6 @@
               </label>
                         <input id='telefono' type="text" required autocomplete="off" />
                     </div>
-
                     <div class="field-wrap">
                         <label>
                 Email Address<span class="req">*</span>
@@ -74,7 +73,7 @@
                         <input id="password" type="password" required autocomplete="off" />
                     </div>
 
-                    <button onclick="Usuario.registrar()" class="button button-block">Get Started</button>
+                    <button onclick="Usuario.primer_registro()" class="button button-block">Get Started</button>
 
                 </form>
 

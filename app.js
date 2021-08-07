@@ -16,8 +16,13 @@ const vistaUsuarios = require('./app/vistas/vista.usuarios');
 const vistaProductos = require('./app/vistas/vista.productos');
 const vistaCategorias = require('./app/vistas/vista.categorias');
 const vistaInterfaz = require('./app/vistas/vista.interfaz');
+<<<<<<< HEAD
 const vistaCarrito = require('./app/vistas/vista.carritos')
 const { usuarioValido } = require('./middlewares/midd.usuarios');
+=======
+const vistaSubCategorias = require('./app/vistas/vista.subCategorias');
+
+>>>>>>> 96d77a7fba2f9a0a123951081b07b3b2fdb05d96
 
 //Middleware globales
 app.use(express.json())
@@ -52,6 +57,7 @@ async function inicioServer() {
 inicioServer();
 
 //Rutas a llamar
+vistaSubCategorias(app)
 vistaRoles(app)
 vistaUsuarios(app)
 vistaInterfaz(app)

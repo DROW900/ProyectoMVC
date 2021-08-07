@@ -10,6 +10,15 @@ module.exports.listarUsuarios = async() => {
         throw new Error('Hubo un error desde el controlador')
     }
 }
+module.exports.listarUsuarioById = async(id) => {
+    try {
+        const resultado = await modeloUsuarios.listarUsuarioById(id)
+        return resultado
+    } catch (error) {
+        console.log('Error del controlador')
+        throw new Error('Hubo un error desde el controlador')
+    }
+}
 
 module.exports.verificacionUsuario = async(token) => {
     const resultado = jwt.verify(token, process.env.SECRET_KEY)
