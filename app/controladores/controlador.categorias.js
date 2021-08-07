@@ -1,16 +1,17 @@
 const modeloCategorias = require('../modelos/modelo.categorias')
+const modeloSubCategorias = require('../modelos/modelo.subCategorias')
 
-module.exports.listarCategorias = async() =>{
+module.exports.listarCategorias = async() => {
     try {
         const resultado = await modeloCategorias.listarCategorias()
         return resultado;
     } catch (error) {
-        console.log('Error del controlador: '+ error)
+        console.log('Error del controlador: ' + error)
         throw new Error('Hubo un error desde el controlador de categorias')
     }
 }
 
-module.exports.registrarCategoria = async(datos) =>{
+module.exports.registrarCategoria = async(datos) => {
     try {
         const resultado = await modeloCategorias.registrarCategoria(datos)
         return resultado

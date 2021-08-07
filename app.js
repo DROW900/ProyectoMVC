@@ -15,7 +15,9 @@ const vistaRoles = require('./app/vistas/vista.roles');
 const vistaUsuarios = require('./app/vistas/vista.usuarios');
 const vistaProductos = require('./app/vistas/vista.productos');
 const vistaCategorias = require('./app/vistas/vista.categorias');
-const vistaInterfaz = require('./app/vistas/vista.interfaz')
+const vistaInterfaz = require('./app/vistas/vista.interfaz');
+const vistaSubCategorias = require('./app/vistas/vista.subCategorias');
+
 
 //Middleware globales
 app.use(express.json())
@@ -51,6 +53,7 @@ async function inicioServer() {
 inicioServer();
 
 //Rutas a llamar
+vistaSubCategorias(app)
 vistaRoles(app)
 vistaUsuarios(app)
 vistaInterfaz(app)
