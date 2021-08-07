@@ -77,6 +77,7 @@ class Usuario {
 
     }
     static async registrar() {
+
         let usuario = await this.recuperarUsuario();
         let nombres = document.getElementById('nombre').value;
         let apellido1 = document.getElementById('pAp').value;
@@ -110,6 +111,7 @@ class Usuario {
 
             })
         });
+
 
 
     }
@@ -147,13 +149,77 @@ class Usuario {
 
     }
     static async editar(id) {
-        await this.mostrar_form();
-        document.getElementById('nombre').value = 'kevin';
-        document.getElementById('pAp').value = 'alvarez';
-        document.getElementById('sAp').value = 'ramirez';
-        document.getElementById('direccion').value = 'una casa';
-        document.getElementById('telefono').value = '58295076';
-        document.getElementById('email').value = 'k@gmail.com';
-        document.getElementById('password').value = 'k123';
+        window.location.href = 'http://localhost:3000/usuario_admin_edit_form'
+
+        console.log(id);
+        localStorage.setItem('id_usuario', id);
+        this.mostrar_form_edit();
+
+    }
+    static async mostrar_form_edit() {
+        window.location.href = 'http://localhost:3000/usuario_admin_edit_form'
+    }
+    static async buscarInfo() {
+        let usuario = await this.recuperarUsuario();
+        console.log(usuario);
+        let id = localStorage.getItem('id_usuario');
+        console.log(id);
+        const rawResponse = await fetch(`http://localhost:3000/usuario_by_id/${usuario.tipo_rol}/${usuario.tipo_rol}`, {
+            method: 'GET',
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${usuario.token}`
+            },
+        });
+        let datos = await rawResponse.json();
+        //console.log(datos);
+        document.getElementById('id_usuario').value = datos.id;
+        document.getElementById('nombre').value = datos.nombre;
+        document.getElementById('pAp').value = datos.primerApellido;
+        document.getElementById('sAp').value = datos.segundoApellido;
+        document.getElementById('direccion').value = datos.direccion;
+        document.getElementById('telefono').value = datos.telefono;
+        document.getElementById('email').value = datos.email;
+        document.getElementById('password').value = datos.contrasenia;
+
+
+    }
+    static async registrar_actualizacion_admin() {
+
+        console.log('vamos a editar perros');
+        let usuario = await this.recuperarUsuario();
+        let id_usuario = document.getElementById('id_usuario').value;
+        let nombres = document.getElementById('nombre').value;
+        let apellido1 = document.getElementById('pAp').value;
+        let apellido2 = document.getElementById('sAp').value;
+        let dir = document.getElementById('direccion').value;
+        let tel = document.getElementById('telefono').value;
+        let roleId = 1;
+        let mail = document.getElementById('email').value;
+        let pass = document.getElementById('password').value;
+        console.log(id_usuario);
+        const rawResponse = await fetch(`http://localhost:3000/usuario/${usuario.tipo_rol}`, {
+            method: 'PUT',
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${usuario.token}`
+            },
+            body: JSON.stringify({
+                id: id_usuario,
+                nombre: nombres,
+                primerApellido: apellido1,
+                segundoApellido: apellido2,
+                email: mail,
+                status: 1,
+                contrasenia: pass,
+                direccion: dir,
+                telefono: tel,
+                roleId: roleId,
+
+            })
+        });
+
     }
 }

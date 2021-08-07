@@ -11,7 +11,17 @@ module.exports.listarUsuarios = async() => {
         throw new Error(error)
     }
 }
-
+module.exports.listarUsuarioById = async(id) => {
+    try {
+        let arr = [id]
+        let resultado = await Usuarios.findByPk(arr[0])
+            // console.log(resultado);
+        return resultado;
+    } catch (error) {
+        console.log("Error desde el modelo Usuario")
+        throw new Error(error)
+    }
+}
 module.exports.validarUsuario = async(datos) => {
     try {
         let login = [datos.email, datos.contrasenia];
@@ -50,17 +60,18 @@ module.exports.registrarUsuario = async(datos) => {
 module.exports.modificarUsuario = async(datos) => {
     try {
         let nuevoUsuario = [
-            datos.id,
-            datos.nombre,
-            datos.primerApellido,
-            datos.segundoApellido,
-            datos.email,
-            1,
-            datos.contrasenia,
-            datos.direccion,
-            datos.telefono,
-            datos.roleId
-        ]
+                datos.id,
+                datos.nombre,
+                datos.primerApellido,
+                datos.segundoApellido,
+                datos.email,
+                1,
+                datos.contrasenia,
+                datos.direccion,
+                datos.telefono,
+                datos.roleId
+            ]
+            //console.log(nuevoUsuario);
         const resultado = await Usuarios.update({ nombre: `${nuevoUsuario[1]}`, primerApellido: `${nuevoUsuario[2]}`, segundoApellido: `${nuevoUsuario[3]}`, email: `${nuevoUsuario[4]}`, status: `${nuevoUsuario[5]}`, contrasenia: `${nuevoUsuario[6]}`, direccion: `${nuevoUsuario[7]}`, telefono: `${nuevoUsuario[8]}`, roleId: `${nuevoUsuario[9]}` }, {
             where: {
                 id: nuevoUsuario[0]

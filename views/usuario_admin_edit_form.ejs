@@ -10,7 +10,7 @@
     <title>Document</title>
 </head>
 
-<body>
+<body onload="Usuario.buscarInfo()">
     <div class="form">
 
         <ul class="tab-group">
@@ -23,7 +23,7 @@
                 <h1>Sign Up for Free</h1>
 
                 <form>
-
+                    <input type="txt" name="" id="id_usuario" style="display: none;">
                     <div class="top-row">
                         <div class="field-wrap">
                             <label>
@@ -74,7 +74,7 @@
                         <input id="password" type="password" required autocomplete="off" />
                     </div>
 
-                    <button onclick="Usuario.registrar()" class="button button-block">Get Started</button>
+                    <button onclick="Usuario.registrar_actualizacion_admin(); return false;" class="button button-block">Get Started</button>
 
                 </form>
 
