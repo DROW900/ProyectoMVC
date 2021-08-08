@@ -36,7 +36,7 @@ async function inicioServer() {
         await SubCategorias.sync({alter: true});
         await Productos.sync({alter: true});
         await Roles.sync({alter: true});
-        await Usuarios.sync({alter:true});
+        await Usuarios.sync({alter: true});
         await Carritos.sync({alter: true});
         console.log('Se sincronizaron los modelos correctamente')
         await sequelize.authenticate()

@@ -1,7 +1,36 @@
-class Carrito{
-    
-    static async agregarProducto(){
+class Carrito{   
+    static async agregarProducto(idProducto){
+        await this.validarUsuarioCarrito();
+        const usuario = await Usuario.recuperarUsuario();      
+        let resultado = await fetch(`http://localhost:3000/carrito/${usuario.id}`, {
+            method: 'post',
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${usuario.token}`
+            },
+            body: JSON.stringify({
+                idUsuario: usuario.id,
+                idProducto: idProducto
+            })
+        })
+        const resultadoDecode = resultado.json()
+        console.log(resultadoDecode)
+    }
 
+    static async mostrarProductos(){
+        const productosObtenidos = await this.obtenerProductos();
+        if(productosObtenidos.length === 0){
+            document.getElementById('productosCarrito').innerHTML = "<h3>Aún no haz agregado nada a tu carrito :C</h3>"
+            document.getElementById('botonComprar').style.display = 'none'
+            document.getElementById('botonVaciar').style.display = 'none'
+        }else{
+            let producto = ''
+            for (let index = 0; index < productosObtenidos.length; index++) {
+                producto += ` <div class="col"><div class="card shadow-sm" '><img src="" class="imagenes" id='img0 ' alt="Imagen Producto"><div class="card-body"><h3>${productosObtenidos[index].producto.nombre}</h3><p class="card-text">Precio: $${productosObtenidos[index].producto.precio}</p><div class="d-flex justify-content-between align-items-center"><div class="btn-group"><button  type="button" class="btn btn-sm btn-outline-secondary"><img src="./assets/images/anadir-al-carrito-1.png" alt=""></button><button type="button" class="btn btn-danger btn-sm btn-outline-secondary" value="${productosObtenidos[index].id}" onclick="Carrito.eliminarProducto(this.value)">Eliminar</button></div><small class="text-muted">9 mins</small> </div></div></div></div>`;
+            }
+            document.getElementById('productosCarrito').innerHTML = producto;
+        }
     }
 
     static async obtenerProductos(){
@@ -14,18 +43,7 @@ class Carrito{
             },
         });
         let productos = await datos.json();
-        if(productos.length === 0){
-            document.getElementById('productosCarrito').innerHTML = "<h3>Aún no haz agregado nada a tu carrito :C</h3>"
-            document.getElementById('botonComprar').style.display = 'none'
-            document.getElementById('botonVaciar').style.display = 'none'
-        }else{
-            let producto = ''
-            for (let index = 0; index < productos.length; index++) {
-                producto += ` <div class="col"><div class="card shadow-sm" '><img src="" class="imagenes" id='img0 ' alt="Imagen Producto"><div class="card-body"><h3>${productos[index].producto.nombre}</h3><p class="card-text">Precio: $${productos[index].producto.precio}</p><div class="d-flex justify-content-between align-items-center"><div class="btn-group"><button  type="button" class="btn btn-sm btn-outline-secondary"><img src="./assets/images/anadir-al-carrito-1.png" alt=""></button><button type="button" class="btn btn-danger btn-sm btn-outline-secondary" value="${productos[index].id}" onclick="Carrito.eliminarProducto(this.value)">Eliminar</button></div><small class="text-muted">9 mins</small> </div></div></div></div>`;
-            }
-            document.getElementById('productosCarrito').innerHTML = producto;
-        }
-        
+        return productos;       
     }
 
     static async eliminarProducto(idEnlace){
@@ -55,5 +73,20 @@ class Carrito{
         });
         let resultado = await datos.json()
         location.reload()
+    }
+
+    static async validarUsuarioCarrito(){
+        let Usuario = await this.recuperarUsuario();
+        if(Usuario != null){
+            if(Usuario.token != undefined){
+                return true
+            }else{
+                alert('Ingresa Sesión para continuar');
+                window.location.href = 'login'             
+            }
+        }else{
+            alert('Inicia Sesión para conitinuar')
+            window.location.href = 'login'
+        }       
     }
 }

@@ -11,7 +11,8 @@ Productos.init(
         descripcion: {type: DataTypes.STRING(150), allowNull:false},
         precio: {type: DataTypes.FLOAT, allowNull:false},
         disponibilidad: {type: DataTypes.INTEGER, allowNull:false},
-        status: {type:DataTypes.INTEGER, allowNull:false}
+        status: {type:DataTypes.INTEGER, allowNull:false},
+        url: {type:DataTypes.STRING(150), allowNull: false}
     },
     {
         sequelize: sequelize,
