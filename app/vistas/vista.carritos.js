@@ -1,4 +1,5 @@
 const controladorCarrito = require('../controladores/controlador.carritos')
+const midd = require('../../middlewares/midd.usuarios')
 
 module.exports = async(app) =>{
 
@@ -21,6 +22,24 @@ module.exports = async(app) =>{
     app.post('/carrito', async (req,res)=>{
         try {
             let resultado = await controladorCarrito.agregarProducto(req.body);
+            res.status(200).json(resultado);
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    })
+
+    app.delete('/carrito/:idEnlace',async (req,res)=>{
+        try {
+            let resultado = await controladorCarrito.eliminarProducto(req.params.idEnlace);
+            res.status(200).json(resultado);
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    })
+
+    app.delete('/vaciarcarrito/:idUsuario', async(req,res)=>{
+        try {
+            let resultado = await controladorCarrito.vaciarProductos(req.params.idUsuario);
             res.status(200).json(resultado);
         } catch (error) {
             res.status(500).json(error)
