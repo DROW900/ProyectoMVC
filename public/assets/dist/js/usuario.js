@@ -20,14 +20,18 @@ class Usuario {
             })
         })
         let datos = await resultado.json();
-        console.log(datos)
-        this.id = datos.id
-        this.token = datos.token;
-        this.tipo_rol = datos.tipo_rol;
-        if (this.token != undefined && this.tipo_rol == 1) {
-            window.location.href = 'http://localhost:3000/admin_usuarios'
-        } else if (this.token != undefined && this.tipo_rol == 2) {
-            window.location.href = 'http://localhost:3000/principal'
+        if (datos) {
+            console.log(datos)
+            this.id = datos.id
+            this.token = datos.token;
+            this.tipo_rol = datos.tipo_rol;
+            if (this.token != undefined && this.tipo_rol == 1) {
+                window.location.href = 'http://localhost:3000/admin_usuarios'
+            } else if (this.token != undefined && this.tipo_rol == 2) {
+                window.location.href = 'http://localhost:3000/principal'
+            }
+        } else {
+            alert('Email y password incorrectos');
         }
 
     }
@@ -159,7 +163,7 @@ class Usuario {
         console.log(usuario);
         let id = localStorage.getItem('id_usuario');
         console.log(id);
-        const rawResponse = await fetch(`http://localhost:3000/usuario_by_id/${usuario.tipo_rol}/${usuario.tipo_rol}`, {
+        const rawResponse = await fetch(`http://localhost:3000/usuario_by_id/${id}/${usuario.tipo_rol}`, {
             method: 'GET',
             headers: {
                 "Accept": "application/json, text/plain, */*",
@@ -180,13 +184,13 @@ class Usuario {
 
 
     }
-    static async cerrarSesion(){
+    static async cerrarSesion() {
         localStorage.removeItem('datosUsuario')
         window.location.href = 'principal'
     }
     static async registrar_actualizacion_admin() {
 
-        console.log('vamos a editar perros');
+
         let usuario = await this.recuperarUsuario();
         let id_usuario = document.getElementById('id_usuario').value;
         let nombres = document.getElementById('nombre').value;
@@ -221,24 +225,24 @@ class Usuario {
         });
 
     }
-    
-    static async validarUsuarioCatalogo(){
+
+    static async validarUsuarioCatalogo() {
         let Usuario = await this.recuperarUsuario();
         console.log(Usuario)
-        if(Usuario != null){
-            if(Usuario.token != undefined){
+        if (Usuario != null) {
+            if (Usuario.token != undefined) {
                 console.log('Hola')
                 document.getElementById('cerrarSesion').style.display = "block";
                 document.getElementById('iniciarSesion').style.display = "none";
-            }else{
+            } else {
                 console.log('Hola')
                 document.getElementById('cerrarSesion').style.display = "none";
-                document.getElementById('iniciarSesion').style.display = "block";                
+                document.getElementById('iniciarSesion').style.display = "block";
             }
-        }else{
+        } else {
             console.log('Hola')
             document.getElementById('cerrarSesion').style.display = "none";
-            document.getElementById('iniciarSesion').style.display = "block";    
+            document.getElementById('iniciarSesion').style.display = "block";
         }
     }
 }
