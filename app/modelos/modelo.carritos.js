@@ -24,5 +24,26 @@ module.exports.agregarProducto = async(datos)=>{
         console.log('Error desde el modelo: ' + error)
         throw new Error(error)
     }
+}
 
+module.exports.eliminarProducto = async(idEnlance)=>{
+    try {
+        let array = [idEnlance];
+        const resultado = await Carrito.destroy({where:{id: array[0]}})
+        return resultado;
+    } catch (error) {
+        console.log('Error desde el modelo: ' + error);
+        throw new Error(error)
+    }
+}
+
+module.exports.vaciarProductos = async(idUsuario)=>{
+    try {
+        let array = [idUsuario]
+        const resultado = await Carrito.destroy({where:{usuarioId: array[0]}})
+        return resultado;
+    } catch (error) {
+        console.log('Error desde el modelo: ' + error)
+        throw new Error(error);
+    }
 }

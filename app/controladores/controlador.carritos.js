@@ -10,7 +10,6 @@ module.exports.listarProductos = async(id) =>{
     }
 }
 
-
 module.exports.agregarProducto = async(datos) =>{
     try {
         let resultado = await modeloCarritos.agregarProducto(datos);
@@ -21,3 +20,22 @@ module.exports.agregarProducto = async(datos) =>{
     }
 }
 
+module.exports.eliminarProducto = async(idEnlace)=>{
+    try {
+        let resultado = await modeloCarritos.eliminarProducto(idEnlace)
+        return resultado;
+    } catch (error) {
+        console.log('Error desde el controlador')
+        throw new Error(error);
+    }
+}
+
+module.exports.vaciarProductos = async(idUsuario)=>{
+    try {
+        let resultado = await modeloCarritos.vaciarProductos(idUsuario)
+        return resultado;
+    } catch (error) {
+        console.log('Error desde el controlador')
+        throw new Error(error);
+    }
+}

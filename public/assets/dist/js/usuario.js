@@ -104,9 +104,6 @@ class Usuario {
                 direccion: dir,
                 telefono: tel,
                 roleId: roleid
-
-
-
             })
         });
 
