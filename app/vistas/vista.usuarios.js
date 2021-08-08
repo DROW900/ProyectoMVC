@@ -48,7 +48,7 @@ module.exports = async(app) => {
             let resultado = await controladorUsuarios.validarUsuario(req.body)
             if (resultado != undefined) {
                 let validacion = await controladorUsuarios.generaToken(req.body)
-                const datos = { tipo_rol: resultado, token: validacion }
+                const datos = { tipo_rol: resultado[0], token: validacion, id: resultado[1] }
                 res.status(200).json(datos);
             }
         } catch (error) {
@@ -111,7 +111,6 @@ module.exports = async(app) => {
 
     app.get('/usuario_form', async(req, res) => {
         try {
-
             res.render('usuario_form');
 
         } catch (error) {

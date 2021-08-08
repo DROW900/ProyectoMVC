@@ -1,7 +1,6 @@
 class Catalogo {
 
     static async obtenerCategorias() {
-
         let resultado = await fetch('http://localhost:3000/categorias', {
             method: 'get',
             headers: {
@@ -16,9 +15,8 @@ class Catalogo {
         }
         document.getElementById('ulCat').innerHTML = aux;
     }
+
     static async getSubCategorias(id_cat) {
-
-
         let subCategorias = await fetch(`http://localhost:3000/subCategorias/${id_cat}`, {
             method: 'get',
             headers: {
@@ -35,9 +33,12 @@ class Catalogo {
             dato += `<li><button class="dropdown-item">${datos[index].nombre}</button></li>`;
 
         }
-
         document.getElementById('ulSub').innerHTML = dato;
 
+
+    }
+
+    static async obtenerProductos(id_sub){
 
     }
 }

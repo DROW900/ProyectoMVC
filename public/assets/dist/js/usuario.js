@@ -21,6 +21,7 @@ class Usuario {
         })
         let datos = await resultado.json();
         console.log(datos)
+        this.id = datos.id
         this.token = datos.token;
         this.tipo_rol = datos.tipo_rol;
         if (this.token != undefined && this.tipo_rol == 1) {
@@ -43,14 +44,11 @@ class Usuario {
 
 
     static async ingresar() {
-
         const email = document.getElementById('inputEmail')
         const password = document.getElementById('inputPassword')
         const usuario = new Usuario(email.value, password.value);
         await usuario.validarUsuario();
         Usuario.guardarUsuario(usuario);
-
-
 
     }
     static async eliminar(id) {
@@ -185,6 +183,10 @@ class Usuario {
 
 
     }
+    static async cerrarSesion(){
+        localStorage.removeItem('datosUsuario')
+        window.location.href = 'principal'
+    }
     static async registrar_actualizacion_admin() {
 
         console.log('vamos a editar perros');
@@ -221,5 +223,25 @@ class Usuario {
             })
         });
 
+    }
+    
+    static async validarUsuarioCatalogo(){
+        let Usuario = await this.recuperarUsuario();
+        console.log(Usuario)
+        if(Usuario != null){
+            if(Usuario.token != undefined){
+                console.log('Hola')
+                document.getElementById('cerrarSesion').style.display = "block";
+                document.getElementById('iniciarSesion').style.display = "none";
+            }else{
+                console.log('Hola')
+                document.getElementById('cerrarSesion').style.display = "none";
+                document.getElementById('iniciarSesion').style.display = "block";                
+            }
+        }else{
+            console.log('Hola')
+            document.getElementById('cerrarSesion').style.display = "none";
+            document.getElementById('iniciarSesion').style.display = "block";    
+        }
     }
 }

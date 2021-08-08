@@ -27,8 +27,10 @@ module.exports.validarUsuario = async(datos) => {
         let login = [datos.email, datos.contrasenia];
         let resultado = await Usuarios.findOne({ where: { email: login[0], contrasenia: login[1], status: 1 } })
         let tipoUsuario = await Roles.findByPk(resultado.roleId)
+        const datosRegreso = [tipoUsuario.tipo_rol, resultado.id]
+        console.log(datosRegreso)
         if (resultado != undefined) {
-            return tipoUsuario.tipo_rol;
+            return datosRegreso;
         }
     } catch (error) {
         console.log('Error desde el modelo')
