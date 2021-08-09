@@ -1,6 +1,5 @@
 async function listar_productos() {
     const usuario = await Usuario.recuperarUsuario();
-
     let usuario_admin = await validar_usuario();
     let vista = await fetch(`http://localhost:3000/listar_productos/${usuario_admin.tipo_rol}`, {
         method: 'get',

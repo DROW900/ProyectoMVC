@@ -73,7 +73,7 @@ class Carrito{
             },
         });
         let resultado = await datos.json()
-        location.reload()
+        location.href = 'vercarrito'
     }
 
     static async validarUsuarioCarrito(){

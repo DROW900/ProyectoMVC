@@ -7,6 +7,7 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.80.0">
     <title>Página de cobro</title>
+    <script src='./assets/dist/js/validaciones.js'></script>
     <script src='./assets/dist/js/usuario.js'></script>
     <script src='./assets/dist/js/carrito.js'></script>
     <script src='./assets/dist/js/venta.js'></script>
@@ -48,8 +49,6 @@
         <ul id="listaProductos" class="list-group mb-3">
           
         </ul>
-        <form class="card p-2">
-        </form>
       </div>
       <div class="col-md-7 col-lg-8">
         <form class="needs-validation" novalidate>
@@ -85,7 +84,7 @@
 
             <div class="col-md-3">
               <label for="cc-expiration" class="form-label">Vigencia</label>
-              <input type="text" class="form-control" id="cc-expiration" placeholder="MM/YY" required>
+              <input type="text" class="form-control" id="cc-expiration" placeholder="MMYY" required>
               <div class="invalid-feedback">
                 Expiration date required
               </div>
@@ -100,7 +99,7 @@
             </div>
           </div>
           <hr class="my-4">
-          <button class="w-100 btn btn-primary btn-lg" type="submit" onclick="Venta.generarVenta()">Continuar</button>
+          <button class="w-100 btn btn-primary btn-lg" type="button" onclick="Venta.validarDatos()">Continuar</button>
         </form>
       </div>
     </div>

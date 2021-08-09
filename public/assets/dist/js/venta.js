@@ -13,33 +13,66 @@ class Venta{
         document.getElementById('listaProductos').innerHTML = datos
     }
 
-    static async generarVenta(){
-        const usuario = await Usuario.recuperarUsuario();
-        const carrito = await Carrito.obtenerProductos();
-        let metodo
-        if(document.getElementById('credit').checked){
-            metodo = 'Tarjeta de Crédito'
-        }else if(document.getElementById('debit').checked){
-            metodo = 'Tarjeta de Débito'
-        }else{
-            alert('Seleccione un método de pago')
+    static async validarDatos(){
+        let nombre = document.getElementById('cc-name').value
+        let tarjetaNumero = document.getElementById('cc-number').value
+        let fecha = document.getElementById('cc-expiration').value
+        let cvv = document.getElementById('cc-cvv').value
+        if(nombre.length == 0){
+            alert('Por favor, ingresa un nombre')
             return
         }
-        let total = 0;
-        for(let i = 0; i < carrito.length; i++){
-            total += carrito[i].producto.precio;
+        if(tarjetaNumero == 0 || tarjetaNumero.length < 16 || !(/^\d{16}$/.test(tarjetaNumero))){
+            alert('El número de tarjeta no es valido')
+            return
         }
-        const resultado = await fetch('http://localhost:3000/venta', {
-            method: 'post',
-            headers: {
-                "Accept": "application/json, text/plain, *//*",
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                "productos": carrito,
-                "total": total,
-                "metodo": metodo 
+        if(fecha == null || !(/^\d{4}$/.test(fecha))){
+            alert('La vigencia no es valida, recuerde que el formato es MMYY')
+            return
+        }
+        if(cvv == null || !(/^\d{3}$/.test(cvv))){
+            alert('El cvv ingrtesado no es correcto')
+            return
+        }
+        await this.generarVenta();
+    }
+
+    static async generarVenta(){
+        try {
+            const carrito = await Carrito.obtenerProductos();
+            let metodo
+            if(document.getElementById('credit').checked){
+                metodo = 'Tarjeta de Crédito'
+            }else if(document.getElementById('debit').checked){
+                metodo = 'Tarjeta de Débito'
+            }else{
+                alert('Seleccione un método de pago')
+                return
+            }
+            let total = 0;
+            for(let i = 0; i < carrito.length; i++){
+                total += carrito[i].producto.precio;
+            }
+            const resultado = await fetch('http://localhost:3000/venta', {
+                method: 'post',
+                headers: {
+                    "Accept": "application/json, text/plain, *//*",
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "productos": carrito,
+                    "total": total,
+                    "metodo": metodo 
+                })
             })
-        })
+            let valor = await resultado.json()
+            if(valor == 1){
+                alert('Se realizó la compra correctamente')
+                Carrito.vaciarCarrito();
+            }           
+        } catch (error) {
+            alert('Ha ocurrido un error con el servidor' + error)
+        }
+       
     }
 }

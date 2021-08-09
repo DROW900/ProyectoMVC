@@ -21,10 +21,11 @@ const vistaInterfaz = require('./app/vistas/vista.interfaz');
 const vistaSubCategorias = require('./app/vistas/vista.subCategorias');
 const vistaCarrito = require('./app/vistas/vista.carritos')
 const vistaVentas = require('./app/vistas/vista.ventas')
+
 //Middleware globales
 app.use(express.json())
 app.use(cors())
-    /* app.use(midd.limiter) */
+app.use(midd.limiter)
 
 //Configuraciones globales
 app.use(express.static(__dirname + '/public'))
