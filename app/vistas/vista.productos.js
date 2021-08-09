@@ -44,19 +44,31 @@ module.exports = async(app) => {
         }
     })
     app.get('/listar_productos/:tipo_rol', midd.usuarioValido, midd.verificarPermisos, async(req, res) => {
-        try {
+            try {
 
-            res.send(true);
-        } catch (error) {
-            console.log(error)
-            res.status(500).json('Error ruta: producto')
-        }
-    })
-    app.get('/lista_de_productos', async(req, res) => {
+                res.send(true);
+            } catch (error) {
+                console.log(error)
+                res.status(500).json('Error ruta: producto')
+            }
+        })
+        /*
+        app.get('/lista_de_productos', async(req, res) => {
+            try {
+                let resultados = await controladorProducto.obtenerProductosYdisponibilidad();
+                //console.log(resultados);
+                res.render('lista_productos', { productos: resultados });
+            } catch (error) {
+                console.log(error)
+                res.status(500).json('Error ruta: producto')
+            }
+        })*/
+    app.get('/lista_de_productos_principal/:id_sub', async(req, res) => {
         try {
-            let resultados = await controladorProducto.obtenerProductosYdisponibilidad();
+            let resultados = await controladorProducto.obtenerProductosYdisponibilidadPorIdSubPrincipal(req.params.id_sub);
             //console.log(resultados);
-            res.render('lista_productos', { productos: resultados });
+
+            res.send(resultados);
         } catch (error) {
             console.log(error)
             res.status(500).json('Error ruta: producto')
