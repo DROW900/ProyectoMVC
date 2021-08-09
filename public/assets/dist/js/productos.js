@@ -66,5 +66,6 @@ async function eliminar(codigo_barra) {
 }
 
 async function mostrar_form_productos() {
-    alert('cargamos form');
+    window.location.href = 'http://localhost:3000/productos_form'
+
 }

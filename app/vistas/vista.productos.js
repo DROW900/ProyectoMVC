@@ -44,25 +44,25 @@ module.exports = async(app) => {
         }
     })
     app.get('/listar_productos/:tipo_rol', midd.usuarioValido, midd.verificarPermisos, async(req, res) => {
-            try {
+        try {
 
-                res.send(true);
-            } catch (error) {
-                console.log(error)
-                res.status(500).json('Error ruta: producto')
-            }
-        })
-        /*
-        app.get('/lista_de_productos', async(req, res) => {
-            try {
-                let resultados = await controladorProducto.obtenerProductosYdisponibilidad();
-                //console.log(resultados);
-                res.render('lista_productos', { productos: resultados });
-            } catch (error) {
-                console.log(error)
-                res.status(500).json('Error ruta: producto')
-            }
-        })*/
+            res.send(true);
+        } catch (error) {
+            console.log(error)
+            res.status(500).json('Error ruta: producto')
+        }
+    })
+
+    app.get('/lista_de_productos', async(req, res) => {
+        try {
+            let resultados = await controladorProducto.obtenerProductosYdisponibilidad();
+            //console.log(resultados);
+            res.render('lista_productos', { productos: resultados });
+        } catch (error) {
+            console.log(error)
+            res.status(500).json('Error ruta: producto')
+        }
+    })
     app.get('/lista_de_productos_principal/:id_sub', async(req, res) => {
         try {
             let resultados = await controladorProducto.obtenerProductosYdisponibilidadPorIdSubPrincipal(req.params.id_sub);
@@ -78,6 +78,17 @@ module.exports = async(app) => {
         try {
             let resultados = await controladorProducto.obtenerProductoByCodigoBarra(req.params.codigo_barra);
             res.send(resultados);
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).json('Error ruta: producto')
+        }
+    })
+
+    app.get('/productos_form', async(req, res) => {
+        try {
+
+            res.render('producto_form');
 
         } catch (error) {
             console.log(error)
