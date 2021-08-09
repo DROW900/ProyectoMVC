@@ -56,3 +56,33 @@ module.exports.obtenerProductosYdisponibilidad = async() => {
         throw new Error('Hubo un error desde el controlador de productos')
     }
 }
+
+
+module.exports.obtenerProductoByCodigoBarra = async(codigo_barra) => {
+    try {
+        const resultado = await modeloProducto.obtenerProductoByCodigoBarra(codigo_barra)
+        return resultado;
+    } catch (error) {
+        console.log('Error del controlador: ' + error)
+        throw new Error('Hubo un error desde el controlador de productos')
+    }
+}
+module.exports.obtenerProductosYdisponibilidadPorIdSubPrincipal = async(id_sub) => {
+    try {
+        const productos = await modeloProducto.obtenerProductosPorIdSubPrincipal(id_sub);
+        let stock = []
+
+        for (let index = 0; index < productos.length; index++) {
+            productos[index].stock = (await modeloProducto.obtenerDisponibilidad(productos[index].codigo_barra));
+        }
+        for (let index = 0; index < productos.length; index++) {
+            productos[index].id = (await modeloProducto.obtenerIdProductoPorCodigoBarra(productos[index].codigo_barra));
+        }
+        return productos;
+        // console.log(productos[0].productos.id);
+
+    } catch (error) {
+        console.log('Error del controlador: ' + error)
+        throw new Error('Hubo un error desde el controlador de productos')
+    }
+}

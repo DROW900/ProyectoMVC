@@ -1,4 +1,6 @@
 <%- include('cabeceras/cabecera_login')%>
+    <script src="assets/dist/js/productos.js"></script>
+    </script>
 
     <body>
 
@@ -33,35 +35,41 @@
                         <th scope="col">Descripcion</th>
                         <th scope="col">Precio</th>
                         <th scope="col">Disponibilidad</th>
+                        <th scope="col">
+                            <button onclick="mostrar_form_productos()"> <img src='assets/images/add.png'> </button>
+                        </th>
                         <% productos.forEach(function (producto){ %>
                     </tr>
-                    <td>
-                        <%= producto.codigo_barra %>
-                    </td>
-                    <td>
-                        <%= producto.nombre %>
-                    </td>
-                    <td>
-                        <%= producto.descripcion %>
-                    </td>
-                    <td>
-                        <%= producto.precio %>
-                    </td>
-                    <td>
-                        <%= producto.stock %>
-                    </td>
-
-
-                    <td>
-                        <button onclick="Usuario.eliminar()"><img src='assets/images/cross.png'></a>
-        
+                    <%  if(producto.stock>0){ %>
+                        <td>
+                            <%= producto.codigo_barra %>
                         </td>
                         <td>
-                            <button  onclick="Usuario.editar()"><img src='assets/images/edit.png'></a>
+                            <%= producto.nombre %>
+                        </td>
+                        <td>
+                            <%= producto.descripcion %>
+                        </td>
+                        <td>
+                            <%= producto.precio %>
+                        </td>
+                        <td>
+                            <%= producto.stock %>
+                        </td>
+
+
+                        <td>
+
+                            <button onclick="eliminar(<%= producto.codigo_barra %>)"><img src='assets/images/cross.png'></a>
+                            
+                    </td>
+                    <td>
+                        <button onclick="Usuario.editar()"><img src='assets/images/edit.png'></a>
         
                         </td>
                         
                         </tr>
+                        <% } %>  
                         <% }) %>
         
         

@@ -71,6 +71,22 @@ module.exports.eliminarProducto = async(id) => {
 
 
 }
+module.exports.obtenerProductosPorIdSubPrincipal = async() => {
+    try {
+        const producto = [1] //1 status
+        let resultado = await Productos.findAll({
+            attributes: [
+                [sequelize.fn('DISTINCT', sequelize.col('codigo_barra')), 'codigo_barra'], 'nombre', 'precio', 'url', 'descripcion',
+            ]
+
+
+        }, { where: { status: producto[0] } })
+        return resultado;
+    } catch (error) {
+        console.log('Ocurrio un error desde el modelo producto')
+        throw new Error(error)
+    }
+}
 module.exports.obtener_todos_productos_sin_repetir_codigo_barra = async() => {
     try {
         const producto = [1] //1 status
@@ -87,6 +103,26 @@ module.exports.obtener_todos_productos_sin_repetir_codigo_barra = async() => {
         throw new Error(error)
     }
 }
+
+module.exports.obtenerProductosYdisponibilidad_por_id_sub = async(id_subcategoria) => {
+    try {
+        const producto = [1, id_subcategoria] //1 status
+        let resultado = await Productos.findAll({
+            attributes: [
+                [sequelize.fn('DISTINCT', sequelize.col('codigo_barra')), 'codigo_barra'], 'nombre', 'precio', 'url', 'descripcion',
+            ]
+
+
+        }, { where: { status: producto[0], subcategoriaId: producto[1] } })
+        return resultado;
+    } catch (error) {
+        console.log('Ocurrio un error desde el modelo producto')
+        throw new Error(error)
+    }
+}
+
+
+
 module.exports.obtenerDisponibilidad = async(codigo_barra) => {
     try {
         console.log(codigo_barra);
@@ -95,7 +131,8 @@ module.exports.obtenerDisponibilidad = async(codigo_barra) => {
             where: {
                 codigo_barra: {
                     [Op.like]: producto[0]
-                }
+                },
+                status: 1
             },
 
         });
@@ -108,16 +145,36 @@ module.exports.obtenerDisponibilidad = async(codigo_barra) => {
 
 }
 
-module.exports.obtenerAtributosByCodigoBarras = async(codigo_barra) => {
+module.exports.obtenerProductoByCodigoBarra = async(codigo_barra) => {
     try {
-        console.log(codigo_barra);
-        let producto = [codigo_barra]
-        let datos = await Productos.findOne({ where: { codigo_barra: producto[0] } });
-        return datos;
+        let producto = [1, codigo_barra]
+        const resultado = await Productos.findOne({
+            where: {
+                codigo_barra: producto[1],
+                status: producto[0]
+
+            }
+        })
+        return resultado;
     } catch (error) {
         console.log('Error en el modelo')
         throw new Error(error)
     }
 
 
+}
+
+module.exports.obtenerIdProductoPorCodigoBarra = async(codigo_barra) => {
+    try {
+        const producto = [1, codigo_barra] //1 status
+        let resultado = await Productos.findOne({
+            attributes: ['id']
+
+
+        }, { where: { status: producto[0], codigo_barra: producto[1] } })
+        return resultado;
+    } catch (error) {
+        console.log('Ocurrio un error desde el modelo producto')
+        throw new Error(error)
+    }
 }

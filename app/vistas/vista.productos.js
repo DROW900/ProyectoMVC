@@ -34,7 +34,7 @@ module.exports = async(app) => {
 
 
 
-    app.delete('/productos/:id', midd.usuarioValido, async(req, res) => {
+    app.delete('/producto/:id', midd.usuarioValido, async(req, res) => {
         try {
             let data = await controladorProducto.eliminarProducto(req.params.id);
             res.status(200).json(data)
@@ -44,22 +44,45 @@ module.exports = async(app) => {
         }
     })
     app.get('/listar_productos/:tipo_rol', midd.usuarioValido, midd.verificarPermisos, async(req, res) => {
-        try {
+            try {
 
-            res.send(true);
-        } catch (error) {
-            console.log(error)
-            res.status(500).json('Error ruta: producto')
-        }
-    })
-    app.get('/lista_de_productos', async(req, res) => {
+                res.send(true);
+            } catch (error) {
+                console.log(error)
+                res.status(500).json('Error ruta: producto')
+            }
+        })
+        /*
+        app.get('/lista_de_productos', async(req, res) => {
+            try {
+                let resultados = await controladorProducto.obtenerProductosYdisponibilidad();
+                //console.log(resultados);
+                res.render('lista_productos', { productos: resultados });
+            } catch (error) {
+                console.log(error)
+                res.status(500).json('Error ruta: producto')
+            }
+        })*/
+    app.get('/lista_de_productos_principal/:id_sub', async(req, res) => {
         try {
-            let resultados = await controladorProducto.obtenerProductosYdisponibilidad();
+            let resultados = await controladorProducto.obtenerProductosYdisponibilidadPorIdSubPrincipal(req.params.id_sub);
             //console.log(resultados);
-            res.render('lista_productos', { productos: resultados });
+
+            res.send(resultados);
         } catch (error) {
             console.log(error)
             res.status(500).json('Error ruta: producto')
         }
     })
+    app.get('/producto_por_codigo_barra/:codigo_barra', async(req, res) => {
+        try {
+            let resultados = await controladorProducto.obtenerProductoByCodigoBarra(req.params.codigo_barra);
+            res.send(resultados);
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).json('Error ruta: producto')
+        }
+    })
+
 }
