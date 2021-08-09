@@ -67,7 +67,7 @@ module.exports = async(app) => {
             res.status(500).json(error)
         }
     })
-    app.post('/primer_registro', async(req, res) => {
+    app.post('/primer_registro', midd.validacionesServidorParaUsuarios, async(req, res) => {
         try {
             console.log(req.body);
             let data = await controladorUsuarios.registrarUsuario(req.body);
