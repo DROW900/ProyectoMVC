@@ -39,15 +39,13 @@ class Venta{
 
     static async generarVenta(){
         try {
+            const usuario = await Usuario.recuperarUsuario();
             const carrito = await Carrito.obtenerProductos();
             let metodo
             if(document.getElementById('credit').checked){
                 metodo = 'Tarjeta de Crédito'
             }else if(document.getElementById('debit').checked){
                 metodo = 'Tarjeta de Débito'
-            }else{
-                alert('Seleccione un método de pago')
-                return
             }
             let total = 0;
             for(let i = 0; i < carrito.length; i++){
@@ -58,6 +56,7 @@ class Venta{
                 headers: {
                     "Accept": "application/json, text/plain, *//*",
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${usuario.token}`
                 },
                 body: JSON.stringify({
                     "productos": carrito,

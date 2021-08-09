@@ -1,4 +1,5 @@
 const controladorVentas = require('../controladores/controlador.ventas')
+const middUser = require('../../middlewares/midd.usuarios')
 
 module.exports = async(app) =>{
     app.get('/realizarVenta', async(req,res)=>{
@@ -10,7 +11,7 @@ module.exports = async(app) =>{
         }
     })
 
-    app.post('/venta', async(req, res)=>{
+    app.post('/venta',middUser.usuarioValido,async(req, res)=>{
         try {
             const resultado = await controladorVentas.generarVenta(req.body);
             res.status(200).json(1); 
