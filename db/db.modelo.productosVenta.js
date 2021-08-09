@@ -7,7 +7,7 @@ class ProductosVenta extends Model{}
 
 ProductosVenta.init(
     {
-
+        precioproducto:{type: DataTypes.INTEGER, allowNull: false}
     },
     {
         sequelize,

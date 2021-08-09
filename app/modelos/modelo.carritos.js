@@ -1,7 +1,6 @@
 const Usuarios = require('../../db/db.modelo.usuarios')
 const Productos = require('../../db/db.modelo.productos');
 const Carrito = require('../../db/db.modelo.carritos');
-const Carritos = require('../../db/db.modelo.carritos');
 
 module.exports.listarProductos = async(datos)=>{
     try {

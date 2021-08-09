@@ -21,9 +21,10 @@ module.exports.crearProducto = async(data) => {
             1, //Preguntar como controlar la disponibilidad
             1, //Status
             data.subcategoriaId,
-            data.url
+            data.url,
+            data.codigo_barra
         ]
-        let resultado = await Productos.create({ nombre: `${producto[0]}`, descripcion: `${producto[1]}`, precio: `${producto[2]}`, disponibilidad: `${producto[3]}`, status: `${producto[4]}`, subcategoriaId: `${producto[5]}`, url: `${producto[6]}` })
+        let resultado = await Productos.create({codigo_barra:`${producto[7]}` ,nombre: `${producto[0]}`, descripcion: `${producto[1]}`, precio: `${producto[2]}`, disponibilidad: `${producto[3]}`, status: `${producto[4]}`, subcategoriaId: `${producto[5]}`, url: `${producto[6]}` })
         return resultado;
     } catch (error) {
         console.log('Ocurrio un error desde el modelo producto')
