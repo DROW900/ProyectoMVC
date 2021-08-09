@@ -1,5 +1,6 @@
 const Productos = require('../../db/db.modelo.productos')
-
+const sequelize = require('sequelize');
+const Op = sequelize.Op
 module.exports.listarProductos = async(idSubCategoria) => {
     try {
         const producto = [idSubCategoria, 1] //1 status
@@ -66,4 +67,56 @@ module.exports.eliminarProducto = async(id) => {
         console.log('Error en el modelo')
         throw new Error(error)
     }
+
+
+}
+module.exports.obtener_todos_productos_sin_repetir_codigo_barra = async() => {
+    try {
+        const producto = [1] //1 status
+        let resultado = await Productos.findAll({
+            attributes: [
+                [sequelize.fn('DISTINCT', sequelize.col('codigo_barra')), 'codigo_barra'], 'nombre', 'precio', 'url', 'descripcion',
+            ]
+
+
+        }, { where: { status: producto[0] } })
+        return resultado;
+    } catch (error) {
+        console.log('Ocurrio un error desde el modelo producto')
+        throw new Error(error)
+    }
+}
+module.exports.obtenerDisponibilidad = async(codigo_barra) => {
+    try {
+        console.log(codigo_barra);
+        let producto = [codigo_barra]
+        const { count, rows } = await Productos.findAndCountAll({
+            where: {
+                codigo_barra: {
+                    [Op.like]: producto[0]
+                }
+            },
+
+        });
+        return count;
+    } catch (error) {
+        console.log('Error en el modelo')
+        throw new Error(error)
+    }
+
+
+}
+
+module.exports.obtenerAtributosByCodigoBarras = async(codigo_barra) => {
+    try {
+        console.log(codigo_barra);
+        let producto = [codigo_barra]
+        let datos = await Productos.findOne({ where: { codigo_barra: producto[0] } });
+        return datos;
+    } catch (error) {
+        console.log('Error en el modelo')
+        throw new Error(error)
+    }
+
+
 }

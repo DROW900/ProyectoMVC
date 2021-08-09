@@ -43,4 +43,23 @@ module.exports = async(app) => {
             res.status(500).json('Error ruta: producto')
         }
     })
+    app.get('/listar_productos/:tipo_rol', midd.usuarioValido, midd.verificarPermisos, async(req, res) => {
+        try {
+
+            res.send(true);
+        } catch (error) {
+            console.log(error)
+            res.status(500).json('Error ruta: producto')
+        }
+    })
+    app.get('/lista_de_productos', async(req, res) => {
+        try {
+            let resultados = await controladorProducto.obtenerProductosYdisponibilidad();
+            //console.log(resultados);
+            res.render('lista_productos', { productos: resultados });
+        } catch (error) {
+            console.log(error)
+            res.status(500).json('Error ruta: producto')
+        }
+    })
 }
