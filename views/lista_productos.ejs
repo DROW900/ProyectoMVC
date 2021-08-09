@@ -1,0 +1,79 @@
+<%- include('cabeceras/cabecera_login')%>
+
+    <body>
+
+        <body class="container">
+            <nav id='nav' class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#"><img id='logo' src="assets/images/Admin.png" alt=""> <strong>Admin</strong></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="http://localhost:3000/admin_usuarios">Usuarios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a type="button" class="nav-link" onclick="Usuario.cerrarSesion()" aria-current="page">Cerrar Sesión</a>
+                            </li>
+                        </ul>
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+            <table class="table table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Codigo de barras</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Disponibilidad</th>
+                        <% productos.forEach(function (producto){ %>
+                    </tr>
+                    <td>
+                        <%= producto.codigo_barra %>
+                    </td>
+                    <td>
+                        <%= producto.nombre %>
+                    </td>
+                    <td>
+                        <%= producto.descripcion %>
+                    </td>
+                    <td>
+                        <%= producto.precio %>
+                    </td>
+                    <td>
+                        <%= producto.stock %>
+                    </td>
+
+
+                    <td>
+                        <button onclick="Usuario.eliminar()"><img src='assets/images/cross.png'></a>
+        
+                        </td>
+                        <td>
+                            <button  onclick="Usuario.editar()"><img src='assets/images/edit.png'></a>
+        
+                        </td>
+                        
+                        </tr>
+                        <% }) %>
+        
+        
+        
+                            </tr>`
+
+
+                </thead>
+                <tbody id="tbody">
+
+                </tbody>
+            </table>
+        </body>
+
+        </html>

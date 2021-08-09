@@ -22,7 +22,7 @@ const vistaCarrito = require('./app/vistas/vista.carritos')
 //Middleware globales
 app.use(express.json())
 app.use(cors())
-/* app.use(midd.limiter) */
+    /* app.use(midd.limiter) */
 
 //Configuraciones globales
 app.use(express.static(__dirname + '/public'))
@@ -32,12 +32,12 @@ app.set('views', __dirname + '/views')
 //Se levanta el servidor
 async function inicioServer() {
     try {
-        await Categorias.sync({alter: true});
-        await SubCategorias.sync({alter: true});
-        await Productos.sync({alter: true});
-        await Roles.sync({alter: true});
-        await Usuarios.sync({alter: true});
-        await Carritos.sync({alter: true});
+        await Categorias.sync({ alter: true });
+        await SubCategorias.sync({ alter: true });
+        await Productos.sync({ alter: true });
+        await Roles.sync({ alter: true });
+        await Usuarios.sync({ alter: true });
+        await Carritos.sync({ alter: true });
         console.log('Se sincronizaron los modelos correctamente')
         await sequelize.authenticate()
         console.log('Se autenticó correctamente la DB')

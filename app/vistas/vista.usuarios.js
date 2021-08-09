@@ -99,6 +99,7 @@ module.exports = async(app) => {
         }
     })
 
+
     app.delete('/usuarios/:id', midd.usuarioValido, async(req, res) => {
         try {
             let data = await controladorUsuarios.eliminarUsuario(req.params.id);
