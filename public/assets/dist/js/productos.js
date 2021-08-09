@@ -38,3 +38,33 @@ async function validar_usuario() {
     let datos = await resultado.json();
     return datos;
 }
+
+async function eliminar(codigo_barra) {
+    console.log(codigo_barra);
+    let datos = await fetch(`http://localhost:3000/producto_por_codigo_barra/${codigo_barra}`, {
+        method: 'get',
+        headers: {
+            "Accept": "application/json, text/plain, */*",
+            'Content-Type': 'application/json',
+            //'Authorization': `Bearer ${usuario.token}`
+        },
+    });
+    const usuario = await Usuario.recuperarUsuario();
+    let producto = await datos.json();
+    let resultado = await fetch(`http://localhost:3000/producto/${producto.id}`, {
+        method: 'delete',
+        headers: {
+            "Accept": "application/json, text/plain, */*",
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${usuario.token}`
+        },
+    });
+    location.reload();
+
+
+
+}
+
+async function mostrar_form_productos() {
+    alert('cargamos form');
+}

@@ -34,7 +34,7 @@ module.exports = async(app) => {
 
 
 
-    app.delete('/productos/:id', midd.usuarioValido, async(req, res) => {
+    app.delete('/producto/:id', midd.usuarioValido, async(req, res) => {
         try {
             let data = await controladorProducto.eliminarProducto(req.params.id);
             res.status(200).json(data)
@@ -62,4 +62,15 @@ module.exports = async(app) => {
             res.status(500).json('Error ruta: producto')
         }
     })
+    app.get('/producto_por_codigo_barra/:codigo_barra', async(req, res) => {
+        try {
+            let resultados = await controladorProducto.obtenerProductoByCodigoBarra(req.params.codigo_barra);
+            res.send(resultados);
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).json('Error ruta: producto')
+        }
+    })
+
 }

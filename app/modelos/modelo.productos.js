@@ -94,7 +94,8 @@ module.exports.obtenerDisponibilidad = async(codigo_barra) => {
             where: {
                 codigo_barra: {
                     [Op.like]: producto[0]
-                }
+                },
+                status: 1
             },
 
         });
@@ -107,12 +108,17 @@ module.exports.obtenerDisponibilidad = async(codigo_barra) => {
 
 }
 
-module.exports.obtenerAtributosByCodigoBarras = async(codigo_barra) => {
+module.exports.obtenerProductoByCodigoBarra = async(codigo_barra) => {
     try {
-        console.log(codigo_barra);
-        let producto = [codigo_barra]
-        let datos = await Productos.findOne({ where: { codigo_barra: producto[0] } });
-        return datos;
+        let producto = [1, codigo_barra]
+        const resultado = await Productos.findOne({
+            where: {
+                codigo_barra: producto[1],
+                status: producto[0]
+
+            }
+        })
+        return resultado;
     } catch (error) {
         console.log('Error en el modelo')
         throw new Error(error)

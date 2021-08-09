@@ -56,3 +56,14 @@ module.exports.obtenerProductosYdisponibilidad = async() => {
         throw new Error('Hubo un error desde el controlador de productos')
     }
 }
+
+
+module.exports.obtenerProductoByCodigoBarra = async(codigo_barra) => {
+    try {
+        const resultado = await modeloProducto.obtenerProductoByCodigoBarra(codigo_barra)
+        return resultado;
+    } catch (error) {
+        console.log('Error del controlador: ' + error)
+        throw new Error('Hubo un error desde el controlador de productos')
+    }
+}
