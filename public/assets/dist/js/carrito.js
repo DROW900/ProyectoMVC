@@ -48,7 +48,7 @@ class Carrito{
     }
 
     static async eliminarProducto(idEnlace){
-        const usuario = Usuario.recuperarUsuario();
+        const usuario = await Usuario.recuperarUsuario();
         let datos = await fetch(`http://localhost:3000/carrito/${idEnlace}`, {
             method: 'delete',
             headers: {
