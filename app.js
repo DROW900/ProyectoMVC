@@ -40,6 +40,8 @@ async function inicioServer() {
         await Roles.sync({ alter: true });
         await Usuarios.sync({ alter: true });
         await Carritos.sync({ alter: true });
+        await Ventas.sync({alter: true});
+        await ProductosVenta.sync({alter: true});
         console.log('Se sincronizaron los modelos correctamente')
         await sequelize.authenticate()
         console.log('Se autenticó correctamente la DB')
