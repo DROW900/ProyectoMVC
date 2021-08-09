@@ -54,7 +54,7 @@ module.exports.registrarUsuario = async(datos) => {
         const usuario = await Usuarios.create({ nombre: `${nuevoUsuario[0]}`, primerApellido: `${nuevoUsuario[1]}`, segundoApellido: `${nuevoUsuario[2]}`, email: `${nuevoUsuario[3]}`, status: `${nuevoUsuario[4]}`, contrasenia: `${nuevoUsuario[5]}`, direccion: `${nuevoUsuario[6]}`, telefono: `${nuevoUsuario[7]}`, roleId: `${nuevoUsuario[8]}` })
         return usuario
     } catch (error) {
-        console.log('Error desde el modelo de usuarios')
+        console.log('Error desde el modelo de usuarios ' + error)
         throw new Error(error)
     }
 }

@@ -1,8 +1,10 @@
 class Usuario {
+
     constructor(email, password) {
         this.email = email
         this.password = password
     }
+
     async validarUsuario() {
         if (this.email == '' || this.password == '') {
             alert('Alguno de los campos está vacío')
@@ -20,7 +22,6 @@ class Usuario {
             })
         })
         let datos = await resultado.json();
-        if (datos) {
             console.log(datos)
             this.id = datos.id
             this.token = datos.token;
@@ -30,9 +31,7 @@ class Usuario {
             } else if (this.token != undefined && this.tipo_rol == 2) {
                 window.location.href = 'http://localhost:3000/principal'
             }
-        } else {
-            alert('Email y password incorrectos');
-        }
+        
 
     }
 

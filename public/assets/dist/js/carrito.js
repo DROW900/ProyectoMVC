@@ -2,7 +2,7 @@ class Carrito{
     static async agregarProducto(idProducto){
         await this.validarUsuarioCarrito();
         const usuario = await Usuario.recuperarUsuario();      
-        let resultado = await fetch(`http://localhost:3000/carrito/${usuario.id}`, {
+        let resultado = await fetch(`http://localhost:3000/carrito/`, {
             method: 'post',
             headers: {
                 "Accept": "application/json, text/plain, */*",
@@ -14,8 +14,8 @@ class Carrito{
                 idProducto: idProducto
             })
         })
-        const resultadoDecode = resultado.json()
-        console.log(resultadoDecode)
+        const resultadoDecode = await resultado.json()
+        alert('¡Se ha agregado el producto correctamente!')
     }
 
     static async mostrarProductos(){
@@ -76,9 +76,9 @@ class Carrito{
     }
 
     static async validarUsuarioCarrito(){
-        let Usuario = await this.recuperarUsuario();
-        if(Usuario != null){
-            if(Usuario.token != undefined){
+        let usuario = await Usuario.recuperarUsuario();
+        if(usuario != null){
+            if(usuario.token != undefined){
                 return true
             }else{
                 alert('Ingresa Sesión para continuar');
