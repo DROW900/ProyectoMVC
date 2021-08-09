@@ -120,13 +120,10 @@ module.exports = async(app) => {
     })
     app.get('/usuario_admin_edit_form', async(req, res) => {
         try {
-
             res.render('usuario_admin_edit_form');
-
         } catch (error) {
             console.log(error)
             res.status(500).json('Error ruta: Usuarios')
         }
     })
-
 }
