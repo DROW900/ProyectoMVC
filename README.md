@@ -12,4 +12,4 @@ Una vez instalados los recursos necesarios se pueden realizar las consultas por 
 
 Para MSSQL es necesario generar una base de datos y configurarla en un archivo .ENV, generando las variables DB_USER, DB_PASS, DB_NAME, DB_PORT y DB_HOST.
 
-Es necesario definir el HOST y puerto con el que funcionará el servidor, además de una SECRET_KEY que nos permitirá firmar correctamente eltoken generado con JWT.
+Es necesario definir el HOST y puerto con el que funcionará el servidor, además de una SECRET_KEY que nos permitirá firmar correctamente eltoken generado con JWT. Estas variables se definen en el mismo .env
